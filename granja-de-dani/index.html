@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>La granja de Dani</title>
+<style>
+:root{--red:#a84337;--cream:#fff7e6;--green:#67844d;--gold:#deb14a;--ink:#4c3727}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#f6ecd9;color:var(--ink);font-family:Arial,Helvetica,sans-serif}
+body.locked{overflow:hidden}
+.cover{position:fixed;inset:0;z-index:999;background:#dbc59e;overflow:auto;transition:.65s ease}
+.cover.hide{opacity:0;pointer-events:none}
+.cover-frame{position:relative;max-width:520px;margin:0 auto}
+.cover-frame img{display:block;width:100%;height:auto}
+.open-hotspot{position:absolute;left:18%;right:18%;bottom:5.7%;height:15%;border:0;background:transparent;cursor:pointer;border-radius:24px}
+.open-hotspot:focus{outline:4px solid rgba(255,255,255,.9);outline-offset:-5px}
+.page{max-width:760px;margin:0 auto;background:#fbf3e5}
+.interior{position:relative}
+.interior img{display:block;width:100%;height:auto}
+.time-fix{position:absolute;left:35.8%;top:84.0%;width:28.2%;height:7.6%;display:flex;align-items:center;justify-content:center;background:#f8e9c7;color:#5a3824;font-weight:800;font-size:clamp(15px,4.2vw,27px);line-height:1;border-radius:4px;pointer-events:none}
+.section{padding:42px 18px}
+.welcome-lower{padding-top:64px}
+.title{font-family:Georgia,serif;font-size:32px;line-height:1.1;text-align:center;color:var(--red);margin:0 0 18px}
+.lead{max-width:620px;margin:0 auto;text-align:center;font-size:18px;line-height:1.55}
+.countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.time{background:white;border-radius:18px;padding:15px 7px;text-align:center;box-shadow:0 7px 20px rgba(77,54,32,.08)}
+.time b{display:block;font-size:28px;color:var(--red)}
+.actions{display:grid;gap:12px}
+.action{display:flex;align-items:center;justify-content:center;gap:9px;text-decoration:none;border-radius:18px;padding:16px;font-weight:900;font-size:17px}
+.map{background:#678a50;color:white}
+.wa{background:#b3463b;color:white}
+.music-btn{position:fixed;right:16px;bottom:16px;z-index:30;width:54px;height:54px;border:0;border-radius:50%;background:var(--gold);font-size:23px;box-shadow:0 7px 18px rgba(0,0,0,.2);cursor:pointer}
+.footer{padding:34px 18px 56px;text-align:center;background:#ecd6af}
+.conf{position:fixed;top:-18px;width:9px;height:15px;border-radius:2px;z-index:1000;animation:fall 2.8s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.15}}
+@media(max-width:560px){.countdown{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body class="locked">
+<audio id="farmMusic" loop preload="auto"></audio>
+<div class="cover" id="cover"><div class="cover-frame"><img id="coverImg" alt="Dani abriendo las puertas del granero con sombrero rojo, camisa de cuadros y overol"><button class="open-hotspot" id="openInvite" type="button" aria-label="Abrir invitación"></button></div></div>
+<main class="page">
+<section class="interior"><img id="interiorImg" alt="Interior del granero con Dani y los datos del evento"><div class="time-fix" aria-hidden="true">2:00 p. m.</div></section>
+<section class="section welcome-lower"><h1 class="title">¡Qué alegría compartir este día contigo!</h1><p class="lead">Prepárate para una tarde llena de sonrisas, sorpresas y momentos para recordar.</p></section>
+<section class="section"><h2 class="title">La cuenta regresiva comenzó…</h2><div class="countdown"><div class="time"><b id="days">--</b>días</div><div class="time"><b id="hours">--</b>horas</div><div class="time"><b id="mins">--</b>minutos</div><div class="time"><b id="secs">--</b>segundos</div></div></section>
+<section class="section"><h2 class="title">Confirma tu asistencia</h2><div class="actions"><a class="action map" href="https://maps.app.goo.gl/tMz6tmfj53NMhvUE8" target="_blank" rel="noopener">📍 Ver ubicación en Google Maps</a><a class="action wa" href="https://wa.me/?text=%C2%A1Hola%21%20Confirmo%20mi%20asistencia%20al%20cumplea%C3%B1os%20de%20Dani.%20%F0%9F%90%84%F0%9F%8C%BB%F0%9F%8E%89" target="_blank" rel="noopener">💬 Confirmar asistencia por WhatsApp</a></div></section>
+<footer class="footer"><h2 class="title">¡Será un día muy especial!</h2><p>Con mucho cariño, te esperamos para celebrar juntos 🌻</p></footer>
+</main>
+<button class="music-btn" id="musicBtn" type="button" aria-label="Pausar o reanudar música">🔊</button>
+<script>
+const cover=document.getElementById('cover');const openInvite=document.getElementById('openInvite');const musicBtn=document.getElementById('musicBtn');const farmMusic=document.getElementById('farmMusic');let playing=false;
+function confetti(){const colors=['#a84337','#deb14a','#67844d','#f3d9ad'];for(let i=0;i<28;i++){const e=document.createElement('i');e.className='conf';e.style.left=(Math.random()*100)+'vw';e.style.background=colors[i%colors.length];e.style.animationDelay=(Math.random()*.4)+'s';document.body.appendChild(e);setTimeout(()=>e.remove(),3200)}}
+async function playMusic(){try{farmMusic.currentTime=0;await farmMusic.play();playing=true;musicBtn.textContent='🔊'}catch(err){playing=false;musicBtn.textContent='🎵'}}
+function pauseMusic(){farmMusic.pause();playing=false;musicBtn.textContent='🎵'}
+openInvite.addEventListener('click',async()=>{await playMusic();confetti();cover.classList.add('hide');document.body.classList.remove('locked');setTimeout(()=>cover.remove(),700)});
+musicBtn.addEventListener('click',()=>{if(playing)pauseMusic();else playMusic()});
+const target=new Date(2026,9,24,14,0,0);function tick(){let diff=Math.max(0,target-Date.now()),s=Math.floor(diff/1000);const d=Math.floor(s/86400);s%=86400;const h=Math.floor(s/3600);s%=3600;const m=Math.floor(s/60),sec=s%60;document.getElementById('days').textContent=d;document.getElementById('hours').textContent=String(h).padStart(2,'0');document.getElementById('mins').textContent=String(m).padStart(2,'0');document.getElementById('secs').textContent=String(sec).padStart(2,'0')}tick();setInterval(tick,1000);
+</script>
+<script>
+async function loadB64(parts,mime,el){const texts=await Promise.all(parts.map(p=>fetch(p).then(r=>r.text())));el.src=`data:${mime};base64,${texts.join('')}`}
+loadB64(['img1_01.txt','img1_02.txt','img1_03.txt','img1_04.txt'],'image/webp',document.getElementById('coverImg'));
+loadB64(['img2_01.txt','img2_02.txt','img2_03.txt'],'image/webp',document.getElementById('interiorImg'));
+loadB64(['music_01.txt','music_02.txt'],'audio/mpeg',document.getElementById('farmMusic'));
+</script>
+</body></html>

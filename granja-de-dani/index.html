@@ -4,54 +4,151 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>La granja de Dani</title>
-<meta name="theme-color" content="#a94337">
 <style>
-:root{--red:#a94337;--red2:#7f2e29;--cream:#fff8e9;--kraft:#e8c99a;--green:#6d874e;--gold:#e4b84f;--ink:#493525}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#f5ead7;color:var(--ink);font-family:Arial,Helvetica,sans-serif}body.lock{overflow:hidden}.cover{position:fixed;inset:0;z-index:50;background:linear-gradient(#9fd7ec 0 44%,#8dbf69 44% 100%);display:flex;align-items:center;justify-content:center;padding:18px;transition:.6s}.cover.off{opacity:0;pointer-events:none}.scene{width:min(100%,480px);text-align:center}.clouds{font-size:34px;letter-spacing:35px;margin-bottom:-5px}.barn{position:relative;margin:0 auto;width:86%;max-width:380px;height:330px;background:var(--red);border:8px solid #fff1d1;border-radius:8px 8px 4px 4px;box-shadow:0 16px 35px #0003}.barn:before{content:"";position:absolute;left:-26px;right:-26px;top:-84px;border-left:calc((min(86vw,380px) + 52px)/2) solid transparent;border-right:calc((min(86vw,380px) + 52px)/2) solid transparent;border-bottom:90px solid var(--red2);filter:drop-shadow(0 -6px 0 #fff1d1)}.sign{position:absolute;z-index:2;top:24px;left:50%;transform:translateX(-50%);background:#f2d9ac;border:4px solid #6c482b;border-radius:9px;padding:8px 17px;font-family:Georgia,serif;font-weight:700;font-size:24px;white-space:nowrap}.door{position:absolute;left:50%;bottom:0;transform:translateX(-50%);width:56%;height:67%;background:#6f3927;border:6px solid #f3d6a4;border-bottom:0}.door:before,.door:after{content:"";position:absolute;top:0;bottom:0;width:6px;background:#f3d6a4}.door:before{left:48%}.door:after{display:none}.x1,.x2{position:absolute;left:5%;right:5%;top:49%;height:7px;background:#f3d6a4;transform-origin:center}.x1{transform:rotate(36deg)}.x2{transform:rotate(-36deg)}.dani{position:absolute;z-index:3;left:50%;bottom:16px;transform:translateX(-50%);font-size:86px;filter:drop-shadow(0 5px 3px #0003)}.animals{font-size:39px;margin-top:-10px;display:flex;justify-content:space-around;position:relative;z-index:3}.open{margin-top:22px;border:0;background:#f7e2b5;color:#6d3428;font-weight:900;font-size:20px;padding:15px 28px;border-radius:999px;box-shadow:0 8px 20px #0003;cursor:pointer}.hint{font-size:14px;color:#fff;text-shadow:0 1px 3px #0008;margin-top:10px}.page{max-width:760px;margin:auto;background:var(--cream);min-height:100vh}.hero{background:linear-gradient(#f5ddaa,#fff8e9);padding:48px 18px 36px;text-align:center}.tag{font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:var(--green);font-weight:800}.hero h1{font:700 46px/1 Georgia,serif;color:var(--red);margin:8px 0}.two{font:700 74px/1 Georgia,serif;color:var(--gold);text-shadow:2px 2px 0 #7f2e29}.lead{font-size:19px;line-height:1.55;max-width:600px;margin:18px auto}.chips{display:flex;gap:9px;justify-content:center;flex-wrap:wrap}.chip{background:#fff;border:2px solid #ecd3a9;border-radius:999px;padding:9px 13px;font-weight:700}.section{padding:38px 18px}.title{font:700 31px/1.15 Georgia,serif;color:var(--red);text-align:center;margin:0 0 22px}.count{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.unit{background:#fff;padding:16px 7px;border-radius:17px;text-align:center;box-shadow:0 6px 18px #4b352214}.unit b{display:block;font-size:29px;color:var(--red)}.card{background:#fff;border-radius:18px;padding:20px;box-shadow:0 7px 20px #4b352218;max-width:620px;margin:0 auto}.card p{line-height:1.55}.btns{display:grid;gap:12px;max-width:620px;margin:18px auto 0}.btn{display:block;text-align:center;text-decoration:none;color:#fff;font-weight:900;padding:16px;border-radius:17px;font-size:17px}.maps{background:var(--green)}.wa{background:var(--red)}.footer{text-align:center;background:#ead0a3;padding:36px 18px 58px}.music{position:fixed;right:14px;bottom:14px;width:54px;height:54px;border:0;border-radius:50%;background:var(--gold);font-size:22px;box-shadow:0 5px 16px #0004;z-index:10}.conf{position:fixed;top:-15px;width:8px;height:14px;z-index:100;animation:fall 2.8s linear forwards}@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.2}}@media(max-width:560px){.count{grid-template-columns:repeat(2,1fr)}.hero h1{font-size:40px}.two{font-size:64px}.barn{height:300px}.dani{font-size:78px}}
+:root{--red:#a84337;--cream:#fff7e6;--green:#67844d;--gold:#deb14a;--ink:#4c3727}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:#f6ecd9;color:var(--ink);font-family:Arial,Helvetica,sans-serif}
+body.locked{overflow:hidden}
+.cover{position:fixed;inset:0;z-index:999;background:#dbc59e;overflow:auto;transition:.65s ease}
+.cover.hide{opacity:0;pointer-events:none}
+.cover-frame{position:relative;max-width:520px;margin:0 auto}
+.cover-frame img{display:block;width:100%;height:auto}
+.open-hotspot{position:absolute;left:18%;right:18%;bottom:5.7%;height:15%;border:0;background:transparent;cursor:pointer;border-radius:24px}
+.open-hotspot:focus{outline:4px solid rgba(255,255,255,.9);outline-offset:-5px}
+.page{max-width:760px;margin:0 auto;background:#fbf3e5}
+.interior{position:relative}
+.interior img{display:block;width:100%;height:auto}
+.section{padding:42px 18px}
+.welcome-lower{padding-top:64px}
+.title{font-family:Georgia,serif;font-size:32px;line-height:1.1;text-align:center;color:var(--red);margin:0 0 18px}
+.lead{max-width:620px;margin:0 auto;text-align:center;font-size:18px;line-height:1.55}
+.countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.time{background:white;border-radius:18px;padding:15px 7px;text-align:center;box-shadow:0 7px 20px rgba(77,54,32,.08)}
+.time b{display:block;font-size:28px;color:var(--red)}
+.details{display:grid;gap:12px}
+.card{background:white;border-radius:18px;padding:18px;box-shadow:0 7px 20px rgba(77,54,32,.08)}
+.card strong{display:block;color:var(--red);margin-bottom:4px}
+.actions{display:grid;gap:12px}
+.action{display:flex;align-items:center;justify-content:center;gap:9px;text-decoration:none;border-radius:18px;padding:16px;font-weight:900;font-size:17px}
+.map{background:#678a50;color:white}
+.wa{background:#b3463b;color:white}
+.music-btn{position:fixed;right:16px;bottom:16px;z-index:30;width:54px;height:54px;border:0;border-radius:50%;background:var(--gold);font-size:23px;box-shadow:0 7px 18px rgba(0,0,0,.2);cursor:pointer}
+.footer{padding:34px 18px 56px;text-align:center;background:#ecd6af}
+.conf{position:fixed;top:-18px;width:9px;height:15px;border-radius:2px;z-index:1000;animation:fall 2.8s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.15}}
+@media(max-width:560px){.countdown{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
-<body class="lock">
-<section class="cover" id="cover">
-  <div class="scene">
-    <div class="clouds">☁️ ☁️</div>
-    <div class="barn">
-      <div class="sign">La granja de Dani</div>
-      <div class="door"><i class="x1"></i><i class="x2"></i></div>
-      <div class="dani">👧🏻</div>
-    </div>
-    <div class="animals"><span>🐄</span><span>🐷</span><span>🐥</span><span>🐴</span></div>
-    <button class="open" id="open">Abrir invitación</button>
-    <div class="hint">Toca para entrar a la granja 🎵</div>
+<body class="locked">
+<audio id="farmMusic" loop preload="auto" src="music.wav"></audio>
+
+<div class="cover" id="cover">
+  <div class="cover-frame">
+    <img src="cover.jpg" alt="Dani abriendo las puertas del granero con sombrero rojo, camisa de cuadros y overol">
+    <button class="open-hotspot" id="openInvite" type="button" aria-label="Abrir invitación"></button>
   </div>
-</section>
+</div>
+
 <main class="page">
-  <section class="hero">
-    <div class="tag">Una tarde muy especial</div>
-    <h1>¡Dani cumple</h1><div class="two">2</div><h1>años!</h1>
-    <p class="lead">¡Qué alegría compartir este día contigo! Prepárate para una tarde llena de sonrisas, sorpresas y momentos para recordar.</p>
-    <div class="chips"><span class="chip">📅 Sábado 24 de octubre de 2026</span><span class="chip">🕑 2:00 p. m.</span></div>
+  <section class="interior">
+    <img src="interior.jpg" alt="Interior del granero con Dani y los datos del evento">
   </section>
+
+  <section class="section welcome-lower">
+    <h1 class="title">¡Qué alegría compartir este día contigo!</h1>
+    <p class="lead">Prepárate para una tarde llena de sonrisas, sorpresas y momentos para recordar.</p>
+  </section>
+
   <section class="section">
     <h2 class="title">La cuenta regresiva comenzó…</h2>
-    <div class="count"><div class="unit"><b id="d">--</b>días</div><div class="unit"><b id="h">--</b>horas</div><div class="unit"><b id="m">--</b>minutos</div><div class="unit"><b id="s">--</b>segundos</div></div>
+    <div class="countdown">
+      <div class="time"><b id="days">--</b>días</div>
+      <div class="time"><b id="hours">--</b>horas</div>
+      <div class="time"><b id="mins">--</b>minutos</div>
+      <div class="time"><b id="secs">--</b>segundos</div>
+    </div>
   </section>
-  <section class="section">
-    <h2 class="title">Nos vemos en la granja 🌻</h2>
-    <div class="card"><p><strong>Casa de los abuelos</strong><br>Tepetates, Naolinco, Veracruz<br>Calle 5 de Mayo s/n, por la fuente</p></div>
-    <div class="btns"><a class="btn maps" href="https://maps.app.goo.gl/tMz6tmfj53NMhvUE8" target="_blank" rel="noopener">📍 Ver ubicación en Google Maps</a><a class="btn wa" href="https://wa.me/?text=%C2%A1Hola%21%20Confirmo%20mi%20asistencia%20al%20cumplea%C3%B1os%20de%20Dani.%20%F0%9F%90%84%F0%9F%8C%BB%F0%9F%8E%89" target="_blank" rel="noopener">💬 Confirmar asistencia por WhatsApp</a></div>
+<section class="section">
+    <h2 class="title">Confirma tu asistencia</h2>
+    <div class="actions">
+      <a class="action map" href="https://maps.app.goo.gl/tMz6tmfj53NMhvUE8" target="_blank" rel="noopener">📍 Ver ubicación en Google Maps</a>
+      <a class="action wa" href="https://wa.me/?text=%C2%A1Hola%21%20Confirmo%20mi%20asistencia%20al%20cumplea%C3%B1os%20de%20Dani.%20%F0%9F%90%84%F0%9F%8C%BB%F0%9F%8E%89" target="_blank" rel="noopener">💬 Confirmar asistencia por WhatsApp</a>
+    </div>
   </section>
-  <footer class="footer"><h2 class="title">¡Será un día muy especial!</h2><p>Con mucho cariño, te esperamos para celebrar juntos 🌻</p></footer>
+
+  <footer class="footer">
+    <h2 class="title">¡Será un día muy especial!</h2>
+    <p>Con mucho cariño, te esperamos para celebrar juntos 🌻</p>
+  </footer>
 </main>
-<button class="music" id="music" aria-label="Música">🎵</button>
+
+<button class="music-btn" id="musicBtn" type="button" aria-label="Pausar o reanudar música">🔊</button>
+
 <script>
-const cover=document.getElementById('cover'),open=document.getElementById('open'),music=document.getElementById('music');let ctx,timer,playing=false;
-function note(f,t,d=.16){if(!ctx)return;const o=ctx.createOscillator(),g=ctx.createGain();o.type='triangle';o.frequency.value=f;g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.045,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(g).connect(ctx.destination);o.start(t);o.stop(t+d+.03)}
-function melody(){if(!playing)return;const n=[523,659,784,659,698,880,784,659],now=ctx.currentTime+.02;n.forEach((f,i)=>note(f,now+i*.2,.18));timer=setTimeout(melody,1750)}
-function startMusic(){if(playing)return;ctx=ctx||new (window.AudioContext||window.webkitAudioContext)();ctx.resume();playing=true;music.textContent='🔊';melody()}
-function stopMusic(){playing=false;clearTimeout(timer);music.textContent='🎵'}
-function confetti(){const c=['#a94337','#e4b84f','#6d874e','#fff'];for(let i=0;i<24;i++){const e=document.createElement('i');e.className='conf';e.style.left=Math.random()*100+'vw';e.style.background=c[i%4];e.style.animationDelay=Math.random()*.4+'s';document.body.appendChild(e);setTimeout(()=>e.remove(),3200)}}
-open.onclick=()=>{startMusic();confetti();cover.classList.add('off');document.body.classList.remove('lock');setTimeout(()=>cover.remove(),650)};music.onclick=()=>playing?stopMusic():startMusic();
-const target=new Date(2026,9,24,14,0,0);function tick(){let x=Math.max(0,target-Date.now()),q=Math.floor(x/1000),d=Math.floor(q/86400);q%=86400;let h=Math.floor(q/3600);q%=3600;let m=Math.floor(q/60),s=q%60;document.getElementById('d').textContent=d;document.getElementById('h').textContent=String(h).padStart(2,'0');document.getElementById('m').textContent=String(m).padStart(2,'0');document.getElementById('s').textContent=String(s).padStart(2,'0')}tick();setInterval(tick,1000);
+const cover=document.getElementById('cover');
+const openInvite=document.getElementById('openInvite');
+const musicBtn=document.getElementById('musicBtn');
+const farmMusic=document.getElementById('farmMusic');
+let playing=false;
+
+function confetti(){
+ const colors=['#a84337','#deb14a','#67844d','#f3d9ad'];
+ for(let i=0;i<28;i++){
+  const e=document.createElement('i');
+  e.className='conf';
+  e.style.left=(Math.random()*100)+'vw';
+  e.style.background=colors[i%colors.length];
+  e.style.animationDelay=(Math.random()*.4)+'s';
+  document.body.appendChild(e);
+  setTimeout(()=>e.remove(),3200);
+ }
+}
+
+async function playMusic(){
+  try {
+    farmMusic.currentTime=0;
+    await farmMusic.play();
+    playing=true;
+    musicBtn.textContent='🔊';
+  } catch(err) {
+    playing=false;
+    musicBtn.textContent='🎵';
+  }
+}
+
+function pauseMusic(){
+  farmMusic.pause();
+  playing=false;
+  musicBtn.textContent='🎵';
+}
+
+openInvite.addEventListener('click', async ()=>{
+  await playMusic();
+  confetti();
+  cover.classList.add('hide');
+  document.body.classList.remove('locked');
+  setTimeout(()=>cover.remove(),700);
+});
+
+musicBtn.addEventListener('click',()=>{
+  if(playing) pauseMusic(); else playMusic();
+});
+
+const target=new Date(2026,9,24,14,0,0);
+function tick(){
+ let diff=Math.max(0,target-Date.now()),s=Math.floor(diff/1000);
+ const d=Math.floor(s/86400); s%=86400;
+ const h=Math.floor(s/3600); s%=3600;
+ const m=Math.floor(s/60),sec=s%60;
+ document.getElementById('days').textContent=d;
+ document.getElementById('hours').textContent=String(h).padStart(2,'0');
+ document.getElementById('mins').textContent=String(m).padStart(2,'0');
+ document.getElementById('secs').textContent=String(sec).padStart(2,'0');
+}
+tick();
+setInterval(tick,1000);
 </script>
 </body>
 </html>
+
